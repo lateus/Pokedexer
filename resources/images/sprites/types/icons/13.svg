@@ -1,0 +1,7 @@
+<svg viewBox="16.75 17.85 14.5 14.5">
+	<defs>
+		<linearGradient id="xw9ec" x1="24" x2="24" y1="9" y2="39" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#edd53e"/><stop offset="1" stop-color="#fbe273"/>
+		</linearGradient>
+	</defs>
+	<path fill="url(#xw9ec)" d="M20.963 18.584A.44.44 0 0 1 21.38 18h4.707a.44.44 0 0 1 .42.31l2.318 7.487a.44.44 0 0 1-.42.57h-2.882a.22.22 0 0 0-.211.28l1.443 5.08a.44.44 0 0 1-.775.384l-6.45-8.577a.44.44 0 0 1 .352-.704h2.243a.22.22 0 0 0 .208-.292z"/>
+</svg>

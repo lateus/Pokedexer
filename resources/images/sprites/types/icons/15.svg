@@ -1,0 +1,7 @@
+<svg viewBox="15.75 15.5 17 17">
+	<defs>
+		<linearGradient id="xw9ec" x1="24" x2="24" y1="9" y2="39" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#70ccbd"/><stop offset="1" stop-color="#8cddd4"/>
+		</linearGradient>
+	</defs>
+	<path fill="url(#xw9ec)" transform="rotate(31 26.5 20)" d="M26.191 16.32l2.403 3.897-2.436 3.7-2.268-3.68z"/><path fill="url(#xw9ec)" transform="rotate(89 28.5 24.5)" d="M28.179 20.19l2.191 3.991-2.333 3.915-2.007-3.988z"/><path fill="url(#xw9ec)" transform="rotate(89 19.5 24.5)" d="M19.569 20.19l2.191 3.991-2.333 3.915-2.007-3.988z"/><path fill="url(#xw9ec)" transform="rotate(-32 21.5 20)" d="M21.551 16.21l2.403 3.897-2.436 3.7-2.268-3.68z"/><path fill="url(#xw9ec)" transform="rotate(148 25.5 28)" d="M26.161 24.22l2.403 3.897-2.436 3.7-2.268-3.68z"/><path fill="url(#xw9ec)" transform="rotate(211 21.5 28)" d="M21.551 24.17l2.403 3.897-2.436 3.7-2.268-3.68z"/>
+</svg>
