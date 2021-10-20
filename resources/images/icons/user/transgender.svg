@@ -1,0 +1,15 @@
+<svg width="256" height="256">
+  <circle cx="128" cy="112" r="62" fill="none" stroke="black" stroke-width="18"/>
+  <!-- female -->
+  <line x1="128"  y1="174" x2="128" y2="248" stroke="black" stroke-width="18"/>
+  <line x1="88"  y1="204" x2="168" y2="204" stroke="black" stroke-width="18"/>
+  <!-- male -->
+  <line x1="164"  y1="64" x2="210" y2="14" stroke="black" stroke-width="18"/>
+  <line x1="167"  y1="8" x2="225" y2="8" stroke="black" stroke-width="18"/>
+  <line x1="216"  y1="8" x2="216" y2="60" stroke="black" stroke-width="18"/>
+  <!-- trans -->
+  <line x1="92"  y1="64" x2="46" y2="14" stroke="black" stroke-width="18"/>
+  <line x1="31"  y1="8" x2="89" y2="8" stroke="black" stroke-width="18"/>
+  <line x1="40"  y1="8" x2="40" y2="60" stroke="black" stroke-width="18"/>
+  <line x1="58"  y1="58" x2="92" y2="30" stroke="black" stroke-width="18"/>
+</svg>

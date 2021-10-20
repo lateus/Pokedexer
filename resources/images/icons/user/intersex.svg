@@ -1,0 +1,10 @@
+<svg width="256" height="256">
+  <circle cx="116" cy="112" r="64" fill="none" stroke="black" stroke-width="18"/>
+  <!-- female -->
+  <line x1="116"  y1="176" x2="117" y2="248" stroke="black" stroke-width="18"/>
+  <line x1="76"  y1="206" x2="156" y2="206" stroke="black" stroke-width="18"/>
+  <!-- male -->
+  <line x1="157"  y1="70" x2="210" y2="14" stroke="black" stroke-width="18"/>
+  <line x1="167"  y1="8" x2="225" y2="8" stroke="black" stroke-width="18"/>
+  <line x1="216"  y1="8" x2="216" y2="60" stroke="black" stroke-width="18"/>
+</svg>
