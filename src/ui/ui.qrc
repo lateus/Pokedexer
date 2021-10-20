@@ -1,0 +1,44 @@
+<RCC>
+    <qresource prefix="/ui">
+        <file>qml/splash.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/dialogs/MessageDialog.qml</file>
+        <file>qml/dialogs/TextEditDialog.qml</file>
+        <file>qml/components/ApplicationWindowContent.qml</file>
+        <file>qml/components/ApplicationMenu.qml</file>
+        <file>qml/components/ApplicationHeader.qml</file>
+        <file>qml/components/PageAbilitydex.qml</file>
+        <file>qml/components/PageBerrydex.qml</file>
+        <file>qml/components/SearchField.qml</file>
+        <file>qml/components/PageItemdex.qml</file>
+        <file>qml/components/PageMovedex.qml</file>
+        <file>qml/components/TypeTag.qml</file>
+        <file>qml/components/MoveAttribute.qml</file>
+        <file>qml/components/PageTypedex.qml</file>
+        <file>qml/components/PageNaturedex.qml</file>
+        <file>qml/components/PagePokedex.qml</file>
+        <file>qml/components/StatAttribute.qml</file>
+        <file>qml/components/SingleStatEditor.qml</file>
+        <file>qml/components/StatsEditor.qml</file>
+        <file>qml/components/StatsViewer.qml</file>
+        <file>qml/components/PagePokemonDetails.qml</file>
+        <file>qml/components/PageAbilityDetails.qml</file>
+        <file>qml/components/PageMoveDetails.qml</file>
+        <file>qml/components/PageTypeDetails.qml</file>
+        <file>qml/components/PageTypePerformance.qml</file>
+        <file>qml/components/PageTypeChart.qml</file>
+        <file>qml/components/PageItemDetails.qml</file>
+        <file>qml/components/PageBerryDetails.qml</file>
+        <file>qml/components/PageAbout.qml</file>
+        <file>qml/components/PageAboutQt.qml</file>
+        <file>qml/components/PageAboutLicense.qml</file>
+        <file>qml/components/PageTeamEditor.qml</file>
+        <file>qml/components/PageTeamDetails.qml</file>
+        <file>qml/components/TeamPokemon.qml</file>
+        <file>qml/components/RectangleSeparator.qml</file>
+        <file>qml/components/PageTeamPokemonDetails.qml</file>
+        <file>qml/components/PageSimplePokemonSelection.qml</file>
+        <file>qml/components/PageSimpleItemSelection.qml</file>
+        <file>qml/components/PageSimpleMoveSelection.qml</file>
+    </qresource>
+</RCC>

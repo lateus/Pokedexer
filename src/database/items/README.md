@@ -1,0 +1,1 @@
+The item `0` must be edited to add descriptions for all languages, and set the fling power to `0`. Otherwise the app will crash when requesting its details.

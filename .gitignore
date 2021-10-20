@@ -1,0 +1,15 @@
+bin/
+binlib/
+build/
+build-*/
+.vscode/
+
+# Qt project files
+*.user
+*.user.*
+*.cflags
+*.cxxflags
+*.creator
+*.files
+*.includes
+*.config
