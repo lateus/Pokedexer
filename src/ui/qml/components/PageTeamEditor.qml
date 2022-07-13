@@ -116,6 +116,7 @@ Page {
 
         onClicked: {
             textEditDialogAddTeam.text = ""
+            textEditDialogAddTeam.maximumTextLength = 30
             textEditDialogAddTeam.open()
         }
     }

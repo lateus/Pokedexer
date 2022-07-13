@@ -63,6 +63,7 @@ Page {
 
     property bool shiny: toolButtonShiny.checked && toolButtonShiny.visible
     property bool female: toolButtonGender.female && toolButtonGender.visible
+    property alias statTestingAllowed: switchDelegateTestStats.checked
     property alias currentTabIndex: tabBarPokemonDetails.currentIndex
 
     Connections {
@@ -287,6 +288,7 @@ Page {
 
                     x: -width/2
                     y: -height/2
+                    padding: 0
 
                     checkable: true
                     highlighted: true
@@ -300,7 +302,8 @@ Page {
                     property bool female
 
                     x: toolButtonShiny.x
-                    y: toolButtonShiny.y + toolButtonShiny.height/2 + 4
+                    y: toolButtonShiny.y + toolButtonShiny.height - 8
+                    padding: 0
 
                     visible: pagePokemonDetails.hasGenderDifferences && pathViewForms.currentIndex === 0
                     highlighted: true
@@ -545,10 +548,7 @@ Page {
                 }
             } // Rectangle (stats)
 
-            ScrollIndicator.vertical: ScrollIndicator {
-                x: parent.width - width
-                height: parent.height
-            }
+            ScrollBar.vertical: ScrollBar { }
         } // Flickable (basic pokemon details)
 
         ListView {
@@ -581,7 +581,7 @@ Page {
                     height: paneHeader.height
 
                     font.bold: orderActive
-                    text: (orderActive ? ascendingOrder ? "⏷ " : "⏶ " : "") + qsTr("Type")
+                    text: (orderActive ? ascendingOrder ? "⏶ " : "⏷ " : "") + qsTr("Type")
                     padding: 0
                     leftPadding: 2
                     topInset: 0
@@ -603,14 +603,14 @@ Page {
                     id: itemDelegateOrderByName
 
                     property bool orderActive: paneHeader.orderIndex === 1
-                    property bool ascendingOrder: orderActive ? true : true
+                    property bool ascendingOrder: true
 
                     x: itemDelegateOrderByType.width
                     width: itemDelegateOrderByPower.x - x // name width
                     height: paneHeader.height
 
                     font.bold: orderActive
-                    text: (orderActive ? ascendingOrder ? "⏷ " : "⏶ " : "") + qsTr("Name")
+                    text: (orderActive ? ascendingOrder ? "⏶ " : "⏷ " : "") + qsTr("Name")
                     padding: 0
                     leftPadding: 2
                     topInset: 0
@@ -632,14 +632,14 @@ Page {
                     id: itemDelegateOrderByPower
 
                     property bool orderActive: paneHeader.orderIndex === 2
-                    property bool ascendingOrder: orderActive ? ascendingOrder : false
+                    property bool ascendingOrder: orderActive ? ascendingOrder : true
 
                     x: itemDelegateOrderByAccuracy.x - width
                     width: 36 // power width
                     height: paneHeader.height
 
                     font.bold: orderActive
-                    text: (orderActive ? ascendingOrder ? "⏷ " : "⏶ " : "") + qsTr("Power")
+                    text: (orderActive ? ascendingOrder ? "⏶ " : "⏷ " : "") + qsTr("Power")
                     padding: 0
                     leftPadding: 2
                     topInset: 0
@@ -661,14 +661,14 @@ Page {
                     id: itemDelegateOrderByAccuracy
 
                     property bool orderActive: paneHeader.orderIndex === 3
-                    property bool ascendingOrder: orderActive ? ascendingOrder : false
+                    property bool ascendingOrder: orderActive ? ascendingOrder : true
 
                     x: itemDelegateOrderByDamageClass.x - width
                     width: 46 // accuracy width
                     height: paneHeader.height
 
                     font.bold: orderActive
-                    text: (orderActive ? ascendingOrder ? "⏷ " : "⏶ " : "") + qsTr("Accuracy")
+                    text: (orderActive ? ascendingOrder ? "⏶ " : "⏷ " : "") + qsTr("Accuracy")
                     padding: 0
                     leftPadding: 2
                     topInset: 0
@@ -690,14 +690,14 @@ Page {
                     id: itemDelegateOrderByDamageClass
 
                     property bool orderActive: paneHeader.orderIndex === 4
-                    property bool ascendingOrder: orderActive ? ascendingOrder : false
+                    property bool ascendingOrder: orderActive ? ascendingOrder : true
 
                     x: paneHeader.width - width
                     width: 47 // damage class width
                     height: paneHeader.height
 
                     font.bold: orderActive
-                    text: (orderActive ? ascendingOrder ? "⏷ " : "⏶ " : "") + qsTr("Class")
+                    text: (orderActive ? ascendingOrder ? "⏶ " : "⏷ " : "") + qsTr("Class")
                     padding: 0
                     leftPadding: 2
                     topInset: 0

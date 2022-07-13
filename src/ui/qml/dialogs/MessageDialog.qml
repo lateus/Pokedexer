@@ -20,7 +20,9 @@ Dialog {
 
     Flickable {
         id: flickable
-        anchors.fill: parent
+        
+        width: parent.width
+        height: parent.height
         contentWidth: width
         contentHeight: Math.max(imageMessageType.height, labelMessage.implicitHeight)
         clip: true

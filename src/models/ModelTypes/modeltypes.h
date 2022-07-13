@@ -61,7 +61,7 @@ signals:
     void filterMatchsChanged(bool value);
 
 private:
-    int currentLanguage = 7; // ES spanish
+    int currentLanguage = 9; // EN english
     int currentVersionGroup = 18; // ultra sun - ultra moon
     bool showTypeNone = false;
 

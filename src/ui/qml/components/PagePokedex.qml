@@ -93,9 +93,8 @@ Page {
 
                     pagePokemonDetails.moves = moves
                     pagePokemonDetails.forms = forms
+                    pagePokemonDetails.statTestingAllowed = false
 
-                    console.log("PagePokedex", "pokemonId", pokemonId)
-                    console.log("PagePokemonDetails", "movesCount", pagePokemonDetails.movesCount)
                     stackView.push(pagePokemonDetails)
                 }
 
@@ -174,6 +173,7 @@ Page {
         icon.color: "transparent"
         scale: roundButtonFilterByType.scale
         visible: false
+        enabled: visible
 
         onClicked: {
 //            drawerFilter.model = modelTypes.getTypeNames()
@@ -191,6 +191,7 @@ Page {
         icon.source: "qrc:/images/icons/others/types.svg"
         icon.color: "transparent"
         scale: roundButtonFilter.checked ? 1 : 0
+        enabled: scale > 0
         Behavior on scale { NumberAnimation { duration: 250; easing.type: roundButtonFilterByType.scale === 0 ? Easing.OutBack : Easing.InBack } }
 
         onClicked: {

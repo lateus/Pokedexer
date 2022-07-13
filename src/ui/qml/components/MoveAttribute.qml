@@ -1,21 +1,23 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
-import QtGraphicalEffects 1.0
+import Qt5Compat.GraphicalEffects
 
 Rectangle {
     id: moveAttribute
 
     property alias attributeName: labelAttributeName.text
     property alias attributeValue: labelAttributeValue.text
-    property alias iconSource: buttonAttributeSymbol.icon.source
     property alias nameWidth: rectanglePowerSymbol.width
+    property alias iconSource: buttonAttributeSymbol.icon.source
+    property alias iconSize: buttonAttributeSymbol.iconSize
     property color nameFillColor: border.color
     property color iconColor: labelAttributeName.color
 
     property alias interactive: itemDelegateBackground.enabled
 
     signal clicked()
+    signal pressAndHold()
 
     Rectangle {
         id: rectanglePowerSymbol
@@ -36,6 +38,9 @@ Rectangle {
         
         Button {
             id: buttonAttributeSymbol
+
+            property real iconSize: width
+
             height: parent.height
             width: height
 
@@ -45,8 +50,8 @@ Rectangle {
             flat: true
             visible: iconSource
             icon.color: enabled ? moveAttribute.iconColor : Material.hintTextColor
-            icon.width: width
-            icon.height: height
+            icon.width: iconSize
+            icon.height: iconSize
             background: null
         }
         
@@ -93,8 +98,7 @@ Rectangle {
             }
         }
 
-        onClicked: {
-            moveAttribute.clicked()
-        }
+        onClicked: moveAttribute.clicked()
+        onPressAndHold: moveAttribute.pressAndHold()
     }
 }

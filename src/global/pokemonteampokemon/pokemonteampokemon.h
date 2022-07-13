@@ -164,14 +164,14 @@ private:
 
     int abilityId = 0;
 
-    int level = 0;
-    int natureId = 0;
-    int ivHp = 0;
-    int ivAtk = 0;
-    int ivDef = 0;
-    int ivSpAtk = 0;
-    int ivSpDef = 0;
-    int ivSpd = 0;
+    int level = 50;
+    int natureId = 1;
+    int ivHp = 31;
+    int ivAtk = 31;
+    int ivDef = 31;
+    int ivSpAtk = 31;
+    int ivSpDef = 31;
+    int ivSpd = 31;
     int evHp = 0;
     int evAtk = 0;
     int evDef = 0;

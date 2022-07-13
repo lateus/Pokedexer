@@ -7,6 +7,7 @@ Dialog {
 
     property alias text: textField.text
     property alias placeholderText: textField.placeholderText
+    property alias maximumTextLength: textField.maximumLength
     property bool allowOK: true
     property string errorMessage // related to `allowOK`
 

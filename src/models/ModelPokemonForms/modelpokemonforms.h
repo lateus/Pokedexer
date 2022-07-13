@@ -18,7 +18,7 @@ class ModelPokemonForms : public QAbstractListModel
 public:
     enum Roles { IdRole = Qt::UserRole + 1, VersionGroupRole, PokemonIdRole, OrderRole, IsDefaultRole, IsBattleOnlyRole, IsMegaRole, NameRole };
     Q_ENUM(Roles)
-    explicit ModelPokemonForms(const QVector<PokemonForm> &pkmnForms = {}, QObject *parent = nullptr);
+    explicit ModelPokemonForms(const QVector<PokemonForm> &pkmnForms = {}, int languageId = 9 /* EN */, int versionGroupId = 18 /* US-UM */, QObject *parent = nullptr);
 
     int getCurrentLanguage() const;
     void setCurrentLanguage(int value);
@@ -45,7 +45,7 @@ signals:
     void hasMegaChanged(bool value);
 
 private:
-    int currentLanguage = 7; // ES spanish
+    int currentLanguage = 9; // EN english
     int currentVersionGroup = 18; // ultra sun - ultra moon
 
     QVector<PokemonForm> pokemonForms;

@@ -161,17 +161,17 @@ QVariant ModelPokemon::getPokemonData(int pokemonId, int role) const
             }
             modelPokemonMoves = new ModelPokemonMoves(pokemonMoves);
 #else
-            return QVariant::fromValue(new ModelPokemonMoves(speciesMoves));
+            return QVariant::fromValue(new ModelPokemonMoves(speciesMoves, currentLanguage, currentVersionGroup));
 #endif
         } else {
-            return QVariant::fromValue(new ModelPokemonMoves(pkmn.getMoves()));
+            return QVariant::fromValue(new ModelPokemonMoves(pkmn.getMoves(), currentLanguage, currentVersionGroup));
         }
     case FormsCountRole:
         return pkmn.getForms().count();
     case FormsRole:
         // The app crashes some times when setting the form (probably because reseting the forms while reseting the forms)
          // modelPokemonForms->setPokemonForms(pkmn.getForms());
-        return QVariant::fromValue(new ModelPokemonForms(pkmn.getForms()));
+        return QVariant::fromValue(new ModelPokemonForms(pkmn.getForms(), currentLanguage, currentVersionGroup));
     default:
         return QVariant();
     }

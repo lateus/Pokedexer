@@ -24,6 +24,7 @@ Item {
     property alias statNameWidth: labelStatName.width
 
     signal statNameClicked()
+    signal statNamePressAndHold()
 
     implicitHeight: 20
 
@@ -32,6 +33,7 @@ Item {
 
         width: parent.width - buttonFinalStatValue.width - 2
         height: parent.height
+
         radius: height/2
         border.width: 0
         border.color: Material.theme === Material.Light ? "#333333" : "#FFFFFF"
@@ -50,6 +52,15 @@ Item {
             color: buttonFinalStatValue.Material.foreground
             textFormat: Text.PlainText
 
+            background: Rectangle {
+
+                readonly property alias hovered: mouseAreaStatName.containsMouse
+                readonly property alias down: mouseAreaStatName.containsPress
+
+                radius: height/2
+                color: down ? "#40777777" : (hovered ? "#30777777" : "transparent")
+            }
+
             Button {
                 id: buttonNatureBonusIcon
                 x: -width + parent.leftPadding + 2*padding - 2
@@ -61,18 +72,29 @@ Item {
                 topInset: 0
                 flat: true
                 visible: icon.source
+                enabled: false
                 icon.source: natureBonus === SingleStatEditor.NatureBonus.NoNatureBonus ? "" : "qrc:/images/icons/actions/" + (natureBonus === SingleStatEditor.NatureBonus.NatureBonusUp ? "add" : "remove") + ".svg"
                 icon.color: labelStatName.color
                 background: null
             }
 
             MouseArea {
+                id: mouseAreaStatName
                 x: buttonNatureBonusIcon.x
                 y: -parent.height/8
                 width: parent.width + x + (statNameWidth - parent.width)
                 height: parent.height + 2*(-y)
+                acceptedButtons: Qt.LeftButton | Qt.RightButton
+                hoverEnabled: true
 
-                onClicked: statNameClicked()
+                onClicked: function(e) {
+                    if (e.button === Qt.LeftButton) {
+                        statNameClicked()
+                    } else {
+                        statNamePressAndHold()
+                    }
+                }
+                onPressAndHold: statNamePressAndHold()
             }
         }
 

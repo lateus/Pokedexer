@@ -1,8 +1,8 @@
 QT += quick svg
 
-android {
-    QT += androidextras
-}
+#android {
+#    QT += androidextras
+#}
 
 CONFIG += c++11 qmltypes
 
@@ -34,6 +34,7 @@ INCLUDEPATH += \
     src/models/ModelTypes \
     src/models/ModelTypes/ModelTypeChart \
     src/models/ModelNatures \
+    src/models/ModelNatures/ModelNatureChart \
     src/models/ModelPokemon \
     src/models/ModelPokemonForms \
     src/models/ModelPokemonMoves \
@@ -61,6 +62,7 @@ HEADERS += \
     src/models/ModelItems/modelitems.h \
     src/models/ModelMoves/modelmoves.h \
     src/models/ModelNatures/modelnatures.h \
+    src/models/ModelNatures/ModelNatureChart/modelnaturechart.h \
     src/models/ModelPokemon/modelpokemon.h \
     src/models/ModelPokemonForms/modelpokemonforms.h \
     src/models/ModelPokemonMoves/modelpokemonmoves.h \
@@ -97,6 +99,7 @@ SOURCES += \
     src/models/ModelItems/modelitems.cpp \
     src/models/ModelMoves/modelmoves.cpp \
     src/models/ModelNatures/modelnatures.cpp \
+    src/models/ModelNatures/ModelNatureChart/modelnaturechart.cpp \
     src/models/ModelPokemon/modelpokemon.cpp \
     src/models/ModelPokemonForms/modelpokemonforms.cpp \
     src/models/ModelPokemonMoves/modelpokemonmoves.cpp \

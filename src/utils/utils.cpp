@@ -1,7 +1,7 @@
 #include "utils.h"
 
 #include <QtMath>
-#include <QFileDialog>
+#include <QtWidgets/QFileDialog>
 #include <QClipboard>
 #include <QGuiApplication>
 #include <QRegularExpression>

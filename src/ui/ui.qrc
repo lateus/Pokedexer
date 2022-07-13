@@ -27,6 +27,7 @@
         <file>qml/components/PageTypeDetails.qml</file>
         <file>qml/components/PageTypePerformance.qml</file>
         <file>qml/components/PageTypeChart.qml</file>
+        <file>qml/components/PageNatureChart.qml</file>
         <file>qml/components/PageItemDetails.qml</file>
         <file>qml/components/PageBerryDetails.qml</file>
         <file>qml/components/PageAbout.qml</file>
@@ -40,5 +41,16 @@
         <file>qml/components/PageSimplePokemonSelection.qml</file>
         <file>qml/components/PageSimpleItemSelection.qml</file>
         <file>qml/components/PageSimpleMoveSelection.qml</file>
+        <file>qml/controls/ComboBox.qml</file>
+        <file>qml/controls/RadioButton.qml</file>
+        <file>qml/controls/ScrollBar.qml</file>
+        <file>qml/controls/TextArea.qml</file>
+        <file>qml/controls/TextField.qml</file>
+        <file>qml/controls/+Material/ComboBox.qml</file>
+        <file>qml/controls/+Material/RadioButton.qml</file>
+        <file>qml/controls/+Material/RadioIndicator.qml</file>
+        <file>qml/controls/+Material/ScrollBar.qml</file>
+        <file>qml/controls/+Material/TextArea.qml</file>
+        <file>qml/controls/+Material/TextField.qml</file>
     </qresource>
 </RCC>

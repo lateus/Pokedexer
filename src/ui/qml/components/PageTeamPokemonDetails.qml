@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
-import QtGraphicalEffects 1.0
+import Qt5Compat.GraphicalEffects
 
 import Pokedexer 1.0 as Backend
 
@@ -18,21 +18,21 @@ Page {
     property bool shiny
     property string nickname
     property int abilityId
-    property int level
-    property int natureId
     property int itemId
-    property int ivHp
-    property int ivAtk
-    property int ivDef
-    property int ivSpAtk
-    property int ivSpDef
-    property int ivSpd
-    property int evHp
-    property int evAtk
-    property int evDef
-    property int evSpAtk
-    property int evSpDef
-    property int evSpd
+    property alias level: statsEditor.level
+    property alias natureId: statsEditor.natureId
+    property alias ivHp: statsEditor.statHpIvValue
+    property alias ivAtk: statsEditor.statAttackIvValue
+    property alias ivDef: statsEditor.statDefenseIvValue
+    property alias ivSpAtk: statsEditor.statSpecialAttackIvValue
+    property alias ivSpDef: statsEditor.statSpecialDefenseIvValue
+    property alias ivSpd: statsEditor.statSpeedIvValue
+    property alias evHp: statsEditor.statHpEvValue
+    property alias evAtk: statsEditor.statAttackEvValue
+    property alias evDef: statsEditor.statDefenseEvValue
+    property alias evSpAtk: statsEditor.statSpecialAttackEvValue
+    property alias evSpDef: statsEditor.statSpecialDefenseEvValue
+    property alias evSpd: statsEditor.statSpeedEvValue
     property int move1Id
     property int move2Id
     property int move3Id
@@ -40,8 +40,29 @@ Page {
 
     property alias currentTabIndex: tabBarTeamPokemonDetails.currentIndex
 
+    Connections {
+        target: applicationWindow
+
+        function onApplicationLanguageIdChanged() {
+            if (pokemonId > 0) {
+                pathViewForms.model.currentLanguage = applicationLanguageId
+                moveAttributeAbility.attributeValue = abilityId > 0 ? modelAbilities.getAbilityData(abilityId, Backend.ModelAbilities.NameRole) : moveAttributeAbility.attributeValue
+                menuItemPrimaryAbility.text = moveAttributeAbility.primaryAbilityId > 0 ? modelAbilities.getAbilityData(moveAttributeAbility.primaryAbilityId, Backend.ModelAbilities.NameRole) : menuItemPrimaryAbility.text
+                menuItemSecondaryAbility.text = moveAttributeAbility.secondaryAbilityId > 0 ? modelAbilities.getAbilityData(moveAttributeAbility.secondaryAbilityId, Backend.ModelAbilities.NameRole) : menuItemSecondaryAbility.text
+                menuItemHiddenAbility.text = moveAttributeAbility.hiddenAbilityId > 0 ? modelAbilities.getAbilityData(moveAttributeAbility.hiddenAbilityId, Backend.ModelAbilities.NameRole) : menuItemHiddenAbility.text
+                moveAttributeItem.attributeValue  = itemId  > 0 ? modelItems.getItemData(itemId, Backend.ModelItems.NameRole)  : moveAttributeItem.attributeValue
+                moveAttributeMove1.attributeValue = move1Id > 0 ? modelMoves.getMoveData(move1Id, Backend.ModelMoves.NameRole) : moveAttributeMove1.attributeValue
+                moveAttributeMove2.attributeValue = move2Id > 0 ? modelMoves.getMoveData(move2Id, Backend.ModelMoves.NameRole) : moveAttributeMove2.attributeValue
+                moveAttributeMove3.attributeValue = move3Id > 0 ? modelMoves.getMoveData(move3Id, Backend.ModelMoves.NameRole) : moveAttributeMove3.attributeValue
+                moveAttributeMove4.attributeValue = move4Id > 0 ? modelMoves.getMoveData(move4Id, Backend.ModelMoves.NameRole) : moveAttributeMove4.attributeValue
+            }
+        }
+    }
+
     function updateTeamPokemonValue(index, value, role) {
-        pageTeamDetails.teamModel.setTeamPokemonData(index, value, role)
+        if (pageTeamDetails.teamModel) {
+            pageTeamDetails.teamModel.setTeamPokemonData(index, value, role)
+        }
     }
 
     function positionFormAtIndex(index) {
@@ -110,7 +131,7 @@ Page {
         Flickable {
             id: flickableMainDetails
 
-            contentHeight: itemDelegatePokemon.height
+            contentHeight: moveAttributeMove4.y + moveAttributeMove4.height + 10
 
 
             //! Form
@@ -190,7 +211,7 @@ Page {
 
                     currentIndex: formId
                     onCurrentIndexChanged: {
-                        if (currentIndex >= 0 && pathViewForms.model && pathViewForms.model !== 1) {
+                        if (currentIndex >= 0 && pathViewForms.model && pathViewForms.count !== 1) {
                             pageTeamPokemonDetails.formId = currentIndex
                             pageTeamPokemonDetails.pokemonId = modelPokemon.getPokemonData(pathViewForms.model.getPokemonFormData(currentIndex, Backend.ModelPokemonForms.PokemonIdRole), Backend.ModelPokemon.IdRole)
                             if (abilityId !== moveAttributeAbility.primaryAbilityId && abilityId !== moveAttributeAbility.secondaryAbilityId && abilityId !== moveAttributeAbility.hiddenAbilityId) {
@@ -209,7 +230,7 @@ Page {
                         z: PathView.iconOrder ? PathView.iconOrder : 0
 
                         fillMode: Image.PreserveAspectFit
-                        source: "qrc:/images/sprites/pokemon/3ds/" + (shiny ? "shiny" : "normal") + (pokemonId > 0 && modelPokemon.getPokemonData(pokemonId, Backend.ModelPokemon.HasGenderDifferencesRole) && genderId === 2 /*db_common.h*/ && order === 1 ? "/female/" : "/") + speciesId + (speciesId > 0 ? ("-" + order) : "") + ".png"
+                        source: "qrc:/images/sprites/pokemon/3ds/" + (shiny ? "shiny" : "normal") + (pokemonId > 0 && modelPokemon.getPokemonData(pokemonId, Backend.ModelPokemon.HasGenderDifferencesRole) && genderId === 1 /*db_common.h?*/ && order === 1 ? "/female/" : "/") + speciesId + (speciesId > 0 ? ("-" + order) : "") + ".png"
 
                         Label {
                             id: labelPokemonSpeciesName
@@ -305,6 +326,7 @@ Page {
                 iconSource: "qrc:/images/icons/actions/edit.svg"
 
                 onClicked: {
+                    textEditDialogChangeNickname.maximumTextLength = 12
                     textEditDialogChangeNickname.open()
                 }
             } // MoveAttribute (nickname)
@@ -610,6 +632,7 @@ Page {
                 nameWidth: height
                 attributeValue: (genderId > 1 ? qsTr("Genderless") : (genderId === 1 ? qsTr("Female") : qsTr("Male")))
                 iconSource: "qrc:/images/icons/user/gender" + (genderId > 1 ? "less" : (genderId === 1 ? "_female" : "_male")) + ".svg"
+                iconSize: height - 4
 
                 onClicked: {
                     if (genderRateId > 0 && genderRateId < 8) {
@@ -663,16 +686,16 @@ Page {
                 nameWidth: height
                 attributeValue: move1Id > 0 ? modelMoves.getMoveData(move1Id, Backend.ModelMoves.NameRole) : qsTr("None")
                 iconSource: "qrc:/images/types/types/icons/" + (modelMoves.getMoveData(move1Id, Backend.ModelMoves.TypeRole)) + ".svg"
+                iconSize: height - 4
 
                 onClicked: {
                     pageSimpleMoveSelection.modelPokemonMovesForSimpleMoveSelection = modelPokemon.getPokemonData(pokemonId, Backend.ModelPokemon.MovesRole)
                     pageSimpleMoveSelection.searchFilter = ""
                     pageSimpleMoveSelection.currentIndex = move1Id
                     pageSimpleMoveSelection.moveOrder = 1
-                    console.log("PageTeamPokemonDetails", "pokemonId", pokemonId)
-                    console.log("pageSimpleMoveSelection", "movesCount", pageSimpleMoveSelection.movesCount)
                     stackView.push(pageSimpleMoveSelection)
                 }
+                onPressAndHold: move1Id = 0
             } // MoveAttribute (move 1)
 
             MoveAttribute {
@@ -692,13 +715,18 @@ Page {
                 nameWidth: height
                 attributeValue: move2Id > 0 ? modelMoves.getMoveData(move2Id, Backend.ModelMoves.NameRole) : qsTr("None")
                 iconSource: "qrc:/images/types/types/icons/" + (modelMoves.getMoveData(move2Id, Backend.ModelMoves.TypeRole)) + ".svg"
+                iconSize: height - 4
 
                 onClicked: {
+                    if (pageSimpleMoveSelection.modelPokemonMovesForSimpleMoveSelection !== modelPokemon.getPokemonData(pokemonId, Backend.ModelPokemon.MovesRole)) {
+                        pageSimpleMoveSelection.modelPokemonMovesForSimpleMoveSelection = modelPokemon.getPokemonData(pokemonId, Backend.ModelPokemon.MovesRole)
+                    }
                     pageSimpleMoveSelection.searchFilter = ""
                     pageSimpleMoveSelection.currentIndex = move2Id
                     pageSimpleMoveSelection.moveOrder = 2
                     stackView.push(pageSimpleMoveSelection)
                 }
+                onPressAndHold: move2Id = 0
             } // MoveAttribute (move 2)
 
             MoveAttribute {
@@ -718,13 +746,18 @@ Page {
                 nameWidth: height
                 attributeValue: move3Id > 0 ? modelMoves.getMoveData(move3Id, Backend.ModelMoves.NameRole) : qsTr("None")
                 iconSource: "qrc:/images/types/types/icons/" + (modelMoves.getMoveData(move3Id, Backend.ModelMoves.TypeRole)) + ".svg"
+                iconSize: height - 4
 
                 onClicked: {
+                    if (pageSimpleMoveSelection.modelPokemonMovesForSimpleMoveSelection !== modelPokemon.getPokemonData(pokemonId, Backend.ModelPokemon.MovesRole)) {
+                        pageSimpleMoveSelection.modelPokemonMovesForSimpleMoveSelection = modelPokemon.getPokemonData(pokemonId, Backend.ModelPokemon.MovesRole)
+                    }
                     pageSimpleMoveSelection.searchFilter = ""
                     pageSimpleMoveSelection.currentIndex = move3Id
                     pageSimpleMoveSelection.moveOrder = 3
                     stackView.push(pageSimpleMoveSelection)
                 }
+                onPressAndHold: move3Id = 0
             } // MoveAttribute (move 3)
 
             MoveAttribute {
@@ -744,13 +777,18 @@ Page {
                 nameWidth: height
                 attributeValue: move4Id > 0 ? modelMoves.getMoveData(move4Id, Backend.ModelMoves.NameRole) : qsTr("None")
                 iconSource: "qrc:/images/types/types/icons/" + (modelMoves.getMoveData(move4Id, Backend.ModelMoves.TypeRole)) + ".svg"
+                iconSize: height - 4
 
                 onClicked: {
+                    if (pageSimpleMoveSelection.modelPokemonMovesForSimpleMoveSelection !== modelPokemon.getPokemonData(pokemonId, Backend.ModelPokemon.MovesRole)) {
+                        pageSimpleMoveSelection.modelPokemonMovesForSimpleMoveSelection = modelPokemon.getPokemonData(pokemonId, Backend.ModelPokemon.MovesRole)
+                    }
                     pageSimpleMoveSelection.searchFilter = ""
                     pageSimpleMoveSelection.currentIndex = move4Id
                     pageSimpleMoveSelection.moveOrder = 4
                     stackView.push(pageSimpleMoveSelection)
                 }
+                onPressAndHold: move4Id = 0
             } // MoveAttribute (move 4)
 
             ScrollBar.vertical: ScrollBar {
@@ -780,12 +818,55 @@ Page {
             id: flickableStatDetails
 
             enabled: speciesId > 0 && pokemonId > 0
+            contentHeight: statsEditor.height
+
+            StatsEditor {
+                id: statsEditor
+
+                readonly property var baseStats: enabled ? modelPokemon.getPokemonData(pokemonId, Backend.ModelPokemon.BaseStatsRole) : [0, 0, 0, 0, 0, 0]
+
+                x: 4
+                y: 6
+                width: parent.width - 2*x
+
+                simpleMode: false
+                baseHp: ~~baseStats[0]
+                baseAttack: ~~baseStats[1]
+                baseDefense: ~~baseStats[2]
+                baseSpecialAttack: ~~baseStats[3]
+                baseSpecialDefense: ~~baseStats[4]
+                baseSpeed: ~~baseStats[5]
+            }
+
+            ScrollBar.vertical: ScrollBar {
+                id: scrollBar2
+
+                padding: 2
+                contentItem: Rectangle {
+                    implicitWidth: 6
+                    implicitHeight: 6
+                    radius: width/2
+
+                    color: scrollBar2.pressed ? scrollBar2.Material.scrollBarPressedColor :
+                           scrollBar2.interactive && scrollBar2.hovered ? scrollBar2.Material.scrollBarHoveredColor : scrollBar2.Material.scrollBarColor
+                    opacity: 0.0
+                }
+
+                background: Rectangle {
+                    implicitWidth: 6
+                    implicitHeight: 6
+                    color: "#0e000000"
+                    opacity: 0.0
+                }
+            }
         } // Flickable (stat details)
     } // SwipeView
 
     Dialogs.TextEditDialog {
         id: textEditDialogChangeNickname
-        anchors.centerIn: Overlay.overlay
+
+        x: (parent.width - width)/2
+        y: (parent.height - height)/2
         width: implicitWidth > applicationWindow.width - 40 ? applicationWindow.width - 40 : implicitWidth
         height: implicitHeight > applicationWindow.height - 40 ? applicationWindow.height - 40 : implicitHeight
 

@@ -1,7 +1,7 @@
 #include "modelpokemonforms.h"
 
-ModelPokemonForms::ModelPokemonForms(const QVector<PokemonForm> &pkmnForms, QObject *parent)
-    : QAbstractListModel(parent), pokemonForms(pkmnForms)
+ModelPokemonForms::ModelPokemonForms(const QVector<PokemonForm> &pkmnForms, int languageId, int versionGroupId, QObject *parent)
+    : QAbstractListModel(parent), currentLanguage(languageId), currentVersionGroup(versionGroupId), pokemonForms(pkmnForms)
 {
     if (!pokemonForms.isEmpty()) {
         updateMegaStatus();

@@ -21,7 +21,7 @@ class ModelPokemonMoves : public QAbstractListModel
 public:
     enum Roles { IdRole = Qt::UserRole + 1, VersionGroupRole, LearnMethodIdRole, LearnMethodNameRole, LearnMethodDescriptionRole, LevelRole };
     Q_ENUM(Roles)
-    explicit ModelPokemonMoves(const QVector<PokemonMove> &pkmnMoves = {}, QObject *parent = nullptr);
+    explicit ModelPokemonMoves(const QVector<PokemonMove> &pkmnMoves = {}, int languageId = 9 /* EN */, int versionGroupId = 18 /* US-UM */, QObject *parent = nullptr);
 
     int getCurrentLanguage() const;
     void setCurrentLanguage(int value);
@@ -62,7 +62,7 @@ signals:
     void sortOrderChanged(Qt::SortOrder value);
 
 private:
-    int currentLanguage = 7; // ES spanish
+    int currentLanguage = 9; // EN english
     int currentVersionGroup = 18; // ultra sun - ultra moon
 
     QVector<PokemonMove> pokemonMoves;

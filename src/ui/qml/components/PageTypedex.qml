@@ -50,6 +50,8 @@ Page {
                 flat: true
 
                 onClicked: {
+                    pageTypeChart.rowToHighlight = -1
+                    pageTypeChart.columnToHighlight = -1
                     stackView.push(pageTypeChart)
                 }
             }

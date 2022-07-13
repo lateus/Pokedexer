@@ -34,6 +34,7 @@ Page {
             onClicked: {
                 textEditDialogChangeTeamName.text = itemDelegateTeamName.text
                 textEditDialogChangeTeamName.placeholderText = qsTr("Type the new name")
+                textEditDialogChangeTeamName.maximumTextLength = 30
                 textEditDialogChangeTeamName.open()
             }
         }
@@ -69,6 +70,7 @@ Page {
                 move2Id: model.move2Id
                 move3Id: model.move3Id
                 move4Id: model.move4Id
+                nickname: model.nickname
 
                 onClicked: {
                     pageTeamPokemonDetails.pokemonIndexInTeam = index
@@ -78,9 +80,9 @@ Page {
                     pageTeamPokemonDetails.shiny = model.shiny
                     pageTeamPokemonDetails.nickname = model.nickname
                     pageTeamPokemonDetails.abilityId = model.abilityId
+                    pageTeamPokemonDetails.itemId = model.itemId
                     pageTeamPokemonDetails.level = model.level
                     pageTeamPokemonDetails.natureId = model.natureId
-                    pageTeamPokemonDetails.itemId = model.itemId
                     pageTeamPokemonDetails.ivHp = model.ivHp
                     pageTeamPokemonDetails.ivAtk = model.ivAtk
                     pageTeamPokemonDetails.ivDef = model.ivDef

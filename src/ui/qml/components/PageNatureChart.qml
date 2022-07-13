@@ -2,22 +2,34 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 
-Page {
-    id: pageTypeChart
+import Pokedexer 1.0 as Backend
 
+Page {
+    id: pageNatureChart
+
+    property int selectedNatureId: 0
     property int rowToHighlight: -1
     property int columnToHighlight: -1
+
+    signal natureSelected(selectedNatureId: int)
 
     enabled: visible
 
     Rectangle {
         id: rectangleCorner
 
+        readonly property alias hovered: mouseAreaCorner.containsMouse
+        onHoveredChanged: {
+            if (hovered) {
+                rowToHighlight = columnToHighlight = -1
+            }
+        }
+
         z: horizontalHeaderView.z + 1
         width: horizontalHeaderView.x
         height: verticalHeaderView.y
 
-        color: Material.backgroundColor
+        color: hovered ? "#30777777" : "transparent"
 
         Label {
             width: parent.width
@@ -32,7 +44,7 @@ Page {
             fontSizeMode: Text.Fit
             font.pointSize: 100
             font.bold: true
-            text: qsTr("TYPE")
+            text: qsTr("Neutral")
             textFormat: Text.PlainText
         }
 
@@ -44,7 +56,15 @@ Page {
 
             color: Material.accent
         }
-    }
+
+        MouseArea {
+            id: mouseAreaCorner
+            width: parent.width
+            height: parent.height
+
+            hoverEnabled: true
+        }
+    } // Rectangle (corner)
 
     Pane {
         id: paneHorizontalHeaderView
@@ -70,45 +90,43 @@ Page {
     HorizontalHeaderView {
         id: horizontalHeaderView
 
-        x: tableViewTypeChart.x
+        x: tableViewNatureChart.x
         z: 5
 
-        syncView: tableViewTypeChart
+        syncView: tableViewNatureChart
         delegate: Rectangle {
             id: rectangleHorizontalHeaderDelegate
 
-            implicitWidth: 40 // same as the view's delegate
-            implicitHeight: imageTypeIconHorizontalHeader.height + labelTypeNameHorizontalHeader.height + 12
+            implicitWidth: 100 // same as the view's delegate
+            implicitHeight: 80
             color: index === columnToHighlight ? "#30777777" : "transparent"
 
-            Image {
-                id: imageTypeIconHorizontalHeader
-
-                x: 4
-                y: 3
-                width: parent.width - 2*x
-                height: width
-
-                source: "qrc:/images/types/types/icons/" + (index + 1) + ".svg"
-                sourceSize: Qt.size(width, height)
-            }
-
-            Label {
-                id: labelTypeNameHorizontalHeader
-
-                y: imageTypeIconHorizontalHeader.y + imageTypeIconHorizontalHeader.height + 4
+            Button {
+                id: buttonStatDown
                 width: parent.width
-                height: 10
+                height: parent.height
+                padding: 0
+                topInset: 0
+                bottomInset: 0
 
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                elide: Text.ElideRight
-                font.pixelSize: 8
-                text: horizontalHeaderView.model.getTypeName(index + 1)
-                textFormat: Text.PlainText
-            }
-        }
-    }
+                flat: true
+                text: modelNatures.getNatureData(modelNatures.getNatureIdFromStatBonus(index + 2, index === 0 ? 3 : 2), Backend.ModelNatures.StatDownRole).replace(' ', '\n')
+                icon.source: "qrc:/images/icons/arrows/double_chevron_down.svg"
+                icon.width: 12
+                icon.height: 12
+                Material.accent: Material.Blue
+                Material.foreground: Material.accent
+                background: null
+
+                onHoveredChanged: {
+                    if (hovered) {
+                        rowToHighlight = -1
+                        columnToHighlight = index
+                    }
+                }
+            } // Button (stat down)
+        } // Rectangle (delegate horizontal header)
+    } // HorizontalHeaderView
 
     Pane {
         id: paneVerticalHeaderView
@@ -134,27 +152,42 @@ Page {
     VerticalHeaderView {
         id: verticalHeaderView
 
-        y: tableViewTypeChart.y
+        y: tableViewNatureChart.y
         z: 5
 
-        syncView: tableViewTypeChart
+        syncView: tableViewNatureChart
         delegate: Rectangle {
             id: rectangleVerticalHeaderDelegate
 
             implicitHeight: 40 // same as the view's delegate
-            implicitWidth: typeTagVerticalHeader.width + rectangleRightLineVerticalHeader.width + 6
+            implicitWidth: 100
             color: index === rowToHighlight ? "#30777777" : "transparent"
 
-            TypeTag {
-                id: typeTagVerticalHeader
+            Button {
+                id: buttonStatUp
+                x: 12
+                y: (parent.height - height)/2
+                padding: 0
+                topInset: 0
+                bottomInset: 0
 
-                x: 2
-                y: 2
-                sourceSize.height: 36
+                flat: true
+                text: modelNatures.getNatureData(modelNatures.getNatureIdFromStatBonus(index === 0 ? 3 : 2, index + 2), Backend.ModelNatures.StatUpRole).replace(' ', '\n')
+                icon.source: "qrc:/images/icons/arrows/double_chevron_up.svg"
+                icon.width: 12
+                icon.height: 12
+                Material.accent: Material.Red
+                Material.foreground: Material.accent
+                background: null
 
-                type: index + 1
-            }
-        }
+                onHoveredChanged: {
+                    if (hovered) {
+                        rowToHighlight = index
+                        columnToHighlight = -1
+                    }
+                }
+            } // Button (stat down)
+        } // Rectangle (delegate vertical header)
 
         Rectangle {
             id: rectangleRightLineVerticalHeader
@@ -165,10 +198,10 @@ Page {
 
             color: Material.accent
         }
-    }
+    } // VerticalHeaderView
 
     TableView {
-        id: tableViewTypeChart
+        id: tableViewNatureChart
 
         x: verticalHeaderView.width
         y: horizontalHeaderView.height
@@ -176,13 +209,13 @@ Page {
         height: parent.height - y
 
         clip: true
-        model: modelTypes.modelTypeChart
+        model: modelNatures.modelNatureChart
         delegate: Rectangle {
-            implicitWidth: 40
-            implicitHeight: width
+            implicitWidth: 100
+            implicitHeight: 40
 
             clip: true
-            color: applicationWindow.Material.theme === Material.Light ? lightColor : darkColor
+            color: "transparent"
             border.width: 3
             border.color: Material.background
             radius: 8
@@ -190,35 +223,35 @@ Page {
             Rectangle {
                 width: parent.width
                 height: parent.height
-                visible: (rowToHighlight === row || columnToHighlight === column) && columnToHighlight >= column && rowToHighlight >= row
+                visible: ((rowToHighlight === row || columnToHighlight === column) && (rowToHighlight >= row && columnToHighlight >= column || rowToHighlight === -1 || columnToHighlight === -1)) || rectangleCorner.hovered && row === column
                 color: "#30777777"
             }
 
-            Label {
-                id: labelEffectivenessMultiplier
+            ItemDelegate {
+                id: itemDelegateNatureName
 
                 width: parent.width
                 height: parent.height
 
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                text: "x" + value
-                textFormat: Text.PlainText
-            }
+                text: modelNatures.getNatureData(natureId, Backend.ModelNatures.NameRole)
+                display: ItemDelegate.TextUnderIcon
 
-            MouseArea {
-                width: parent.width
-                height: parent.height
-                hoverEnabled: true
+                onHoveredChanged: {
+                    if (hovered) {
+                        rowToHighlight = row
+                        columnToHighlight = column
+                    }
+                }
 
-                onEntered: {
+                onPressed: {
                     rowToHighlight = row
                     columnToHighlight = column
                 }
 
                 onClicked: {
-                    rowToHighlight = row
-                    columnToHighlight = column
+                    pageNatureChart.selectedNatureId = natureId
+                    pageNatureChart.natureSelected(pageNatureChart.selectedNatureId)
+                    stackView.pop()
                 }
             }
         } // Rectangle

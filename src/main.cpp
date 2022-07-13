@@ -1,13 +1,13 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QIcon>
-#ifdef Q_OS_ANDROID
-#include <QtAndroid>
-#endif
+//#ifdef Q_OS_ANDROID
+//#include <QtAndroid> // Qt5
+//#endif
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    // QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling); // Qt5
 
     QGuiApplication app(argc, argv);
     app.setOrganizationName("Lateus");
@@ -24,7 +24,8 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 #ifdef Q_OS_ANDROID
-    QtAndroid::hideSplashScreen(50);
+    // QtAndroid::hideSplashScreen(50); // Qt5
+    QNativeInterface::QAndroidApplication::::hideSplashScreen(50); // Qt6
 #endif
 
     return app.exec();

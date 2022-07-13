@@ -2,8 +2,8 @@
 #include "../../database/moves/db_moves.h"
 #include "../../database/common/db_common.h"
 
-ModelPokemonMoves::ModelPokemonMoves(const QVector<PokemonMove> &pkmnMoves, QObject *parent)
-    : QAbstractListModel(parent), pokemonMoves(pkmnMoves)
+ModelPokemonMoves::ModelPokemonMoves(const QVector<PokemonMove> &pkmnMoves, int languageId, int versionGroupId, QObject *parent)
+    : QAbstractListModel(parent), currentLanguage(languageId), currentVersionGroup(versionGroupId), pokemonMoves(pkmnMoves)
 {
     if (!pokemonMoves.isEmpty()) {
         checkPokemonMoves();
@@ -85,18 +85,18 @@ void ModelPokemonMoves::sort(int column, Qt::SortOrder order)
             int move1Id = pokemonMove1.getId();
             int move2Id = pokemonMove2.getId();
 #ifndef LITE_VERSION
-            int move1VectorIndex = (move1Id - 1)/150;
-            int move2VectorIndex = (move2Id - 1)/150;
-            const Move move1 = (move1VectorIndex == 0 ? moves1 : move1VectorIndex == 1 ? moves2 : move1VectorIndex == 2 ? moves3 : move1VectorIndex == 3 ? moves4 : moves5)[(move1Id - 1) % 150];
-            const Move move2 = (move2VectorIndex == 0 ? moves1 : move2VectorIndex == 1 ? moves2 : move2VectorIndex == 2 ? moves3 : move2VectorIndex == 3 ? moves4 : moves5)[(move2Id - 1) % 150];
+            int move1VectorIndex = move1Id/150;
+            int move2VectorIndex = move2Id/150;
+            const Move move1 = (move1VectorIndex == 0 ? moves1 : move1VectorIndex == 1 ? moves2 : move1VectorIndex == 2 ? moves3 : move1VectorIndex == 3 ? moves4 : moves5)[move1Id % 150];
+            const Move move2 = (move2VectorIndex == 0 ? moves1 : move2VectorIndex == 1 ? moves2 : move2VectorIndex == 2 ? moves3 : move2VectorIndex == 3 ? moves4 : moves5)[move2Id % 150];
 #else
-            int move1VectorIndex = (move1Id - 1)/400;
-            int move2VectorIndex = (move2Id - 1)/400;
-            const Move move1 = (move1VectorIndex == 0 ? moves1 : moves2)[(move1Id - 1) % 400];
-            const Move move2 = (move2VectorIndex == 0 ? moves1 : moves2)[(move2Id - 1) % 400];
+            int move1VectorIndex = move1Id/400;
+            int move2VectorIndex = move2Id/400;
+            const Move move1 = (move1VectorIndex == 0 ? moves1 : moves2)[move1Id % 400];
+            const Move move2 = (move2VectorIndex == 0 ? moves1 : moves2)[move2Id % 400];
 #endif
 
-            return order == Qt::DescendingOrder ? typeNames[move1.getType()] > typeNames[move2.getType()] : typeNames[move1.getType()] < typeNames[move2.getType()];
+            return order == Qt::AscendingOrder ? typeNames[move1.getType()] < typeNames[move2.getType()] : typeNames[move1.getType()] > typeNames[move2.getType()]; // 'a' < 'b'
         });
         break;
     case 1:
@@ -108,20 +108,20 @@ void ModelPokemonMoves::sort(int column, Qt::SortOrder order)
             int move1Id = pokemonMove1.getId();
             int move2Id = pokemonMove2.getId();
 #ifndef LITE_VERSION
-            int move1VectorIndex = (move1Id - 1)/150;
-            int move2VectorIndex = (move2Id - 1)/150;
-            const Move move1 = (move1VectorIndex == 0 ? moves1 : move1VectorIndex == 1 ? moves2 : move1VectorIndex == 2 ? moves3 : move1VectorIndex == 3 ? moves4 : moves5)[(move1Id - 1) % 150];
-            const Move move2 = (move2VectorIndex == 0 ? moves1 : move2VectorIndex == 1 ? moves2 : move2VectorIndex == 2 ? moves3 : move2VectorIndex == 3 ? moves4 : moves5)[(move2Id - 1) % 150];
+            int move1VectorIndex = move1Id/150;
+            int move2VectorIndex = move2Id/150;
+            const Move move1 = (move1VectorIndex == 0 ? moves1 : move1VectorIndex == 1 ? moves2 : move1VectorIndex == 2 ? moves3 : move1VectorIndex == 3 ? moves4 : moves5)[move1Id % 150];
+            const Move move2 = (move2VectorIndex == 0 ? moves1 : move2VectorIndex == 1 ? moves2 : move2VectorIndex == 2 ? moves3 : move2VectorIndex == 3 ? moves4 : moves5)[move2Id % 150];
 #else
-            int move1VectorIndex = (move1Id - 1)/400;
-            int move2VectorIndex = (move2Id - 1)/400;
-            const Move move1 = (move1VectorIndex == 0 ? moves1 : moves2)[(move1Id - 1) % 400];
-            const Move move2 = (move2VectorIndex == 0 ? moves1 : moves2)[(move2Id - 1) % 400];
+            int move1VectorIndex = move1Id/400;
+            int move2VectorIndex = move2Id/400;
+            const Move move1 = (move1VectorIndex == 0 ? moves1 : moves2)[move1Id % 400];
+            const Move move2 = (move2VectorIndex == 0 ? moves1 : moves2)[move2Id % 400];
 #endif
 
             QString name1 = (move1.getNames().at(currentLanguage - 1).isEmpty() ? move1.getNames().at(8) : move1.getNames().at(currentLanguage - 1)).toLower();
             QString name2 = (move2.getNames().at(currentLanguage - 1).isEmpty() ? move2.getNames().at(8) : move2.getNames().at(currentLanguage - 1)).toLower();
-            return order == Qt::DescendingOrder ? name1 > name2 : name1 < name2;
+            return order == Qt::AscendingOrder ? name1 < name2 : name1 > name2; // 'a' < 'b'
         });
         break;
     case 2:
@@ -133,20 +133,20 @@ void ModelPokemonMoves::sort(int column, Qt::SortOrder order)
             int move1Id = pokemonMove1.getId();
             int move2Id = pokemonMove2.getId();
 #ifndef LITE_VERSION
-            int move1VectorIndex = (move1Id - 1)/150;
-            int move2VectorIndex = (move2Id - 1)/150;
-            const Move move1 = (move1VectorIndex == 0 ? moves1 : move1VectorIndex == 1 ? moves2 : move1VectorIndex == 2 ? moves3 : move1VectorIndex == 3 ? moves4 : moves5)[(move1Id - 1) % 150];
-            const Move move2 = (move2VectorIndex == 0 ? moves1 : move2VectorIndex == 1 ? moves2 : move2VectorIndex == 2 ? moves3 : move2VectorIndex == 3 ? moves4 : moves5)[(move2Id - 1) % 150];
+            int move1VectorIndex = move1Id/150;
+            int move2VectorIndex = move2Id/150;
+            const Move move1 = (move1VectorIndex == 0 ? moves1 : move1VectorIndex == 1 ? moves2 : move1VectorIndex == 2 ? moves3 : move1VectorIndex == 3 ? moves4 : moves5)[move1Id % 150];
+            const Move move2 = (move2VectorIndex == 0 ? moves1 : move2VectorIndex == 1 ? moves2 : move2VectorIndex == 2 ? moves3 : move2VectorIndex == 3 ? moves4 : moves5)[move2Id % 150];
 #else
-            int move1VectorIndex = (move1Id - 1)/400;
-            int move2VectorIndex = (move2Id - 1)/400;
-            const Move move1 = (move1VectorIndex == 0 ? moves1 : moves2)[(move1Id - 1) % 400];
-            const Move move2 = (move2VectorIndex == 0 ? moves1 : moves2)[(move2Id - 1) % 400];
+            int move1VectorIndex = move1Id/400;
+            int move2VectorIndex = move2Id/400;
+            const Move move1 = (move1VectorIndex == 0 ? moves1 : moves2)[move1Id % 400];
+            const Move move2 = (move2VectorIndex == 0 ? moves1 : moves2)[move2Id % 400];
 #endif
 
             int power1 = move1.getPower();
             int power2 = move2.getPower();
-            return order == Qt::DescendingOrder ? power1 > power2 : power1 < power2;
+            return order == Qt::AscendingOrder ? power1 > power2 : power1 < power2;
         });
         break;
     case 3:
@@ -158,20 +158,20 @@ void ModelPokemonMoves::sort(int column, Qt::SortOrder order)
             int move1Id = pokemonMove1.getId();
             int move2Id = pokemonMove2.getId();
 #ifndef LITE_VERSION
-            int move1VectorIndex = (move1Id - 1)/150;
-            int move2VectorIndex = (move2Id - 1)/150;
-            const Move move1 = (move1VectorIndex == 0 ? moves1 : move1VectorIndex == 1 ? moves2 : move1VectorIndex == 2 ? moves3 : move1VectorIndex == 3 ? moves4 : moves5)[(move1Id - 1) % 150];
-            const Move move2 = (move2VectorIndex == 0 ? moves1 : move2VectorIndex == 1 ? moves2 : move2VectorIndex == 2 ? moves3 : move2VectorIndex == 3 ? moves4 : moves5)[(move2Id - 1) % 150];
+            int move1VectorIndex = move1Id/150;
+            int move2VectorIndex = move2Id/150;
+            const Move move1 = (move1VectorIndex == 0 ? moves1 : move1VectorIndex == 1 ? moves2 : move1VectorIndex == 2 ? moves3 : move1VectorIndex == 3 ? moves4 : moves5)[move1Id % 150];
+            const Move move2 = (move2VectorIndex == 0 ? moves1 : move2VectorIndex == 1 ? moves2 : move2VectorIndex == 2 ? moves3 : move2VectorIndex == 3 ? moves4 : moves5)[move2Id % 150];
 #else
-            int move1VectorIndex = (move1Id - 1)/400;
-            int move2VectorIndex = (move2Id - 1)/400;
-            const Move move1 = (move1VectorIndex == 0 ? moves1 : moves2)[(move1Id - 1) % 400];
-            const Move move2 = (move2VectorIndex == 0 ? moves1 : moves2)[(move2Id - 1) % 400];
+            int move1VectorIndex = move1Id/400;
+            int move2VectorIndex = move2Id/400;
+            const Move move1 = (move1VectorIndex == 0 ? moves1 : moves2)[move1Id % 400];
+            const Move move2 = (move2VectorIndex == 0 ? moves1 : moves2)[move2Id % 400];
 #endif
 
             int accuracy1 = move1.getAccuracy();
             int accuracy2 = move2.getAccuracy();
-            return order == Qt::DescendingOrder ? accuracy1 > accuracy2 : accuracy1 < accuracy2;
+            return order == Qt::AscendingOrder ? accuracy1 > accuracy2 : accuracy1 < accuracy2;
         });
         break;
     case 4:
@@ -183,20 +183,20 @@ void ModelPokemonMoves::sort(int column, Qt::SortOrder order)
             int move1Id = pokemonMove1.getId();
             int move2Id = pokemonMove2.getId();
 #ifndef LITE_VERSION
-            int move1VectorIndex = (move1Id - 1)/150;
-            int move2VectorIndex = (move2Id - 1)/150;
-            const Move move1 = (move1VectorIndex == 0 ? moves1 : move1VectorIndex == 1 ? moves2 : move1VectorIndex == 2 ? moves3 : move1VectorIndex == 3 ? moves4 : moves5)[(move1Id - 1) % 150];
-            const Move move2 = (move2VectorIndex == 0 ? moves1 : move2VectorIndex == 1 ? moves2 : move2VectorIndex == 2 ? moves3 : move2VectorIndex == 3 ? moves4 : moves5)[(move2Id - 1) % 150];
+            int move1VectorIndex = move1Id/150;
+            int move2VectorIndex = move2Id/150;
+            const Move move1 = (move1VectorIndex == 0 ? moves1 : move1VectorIndex == 1 ? moves2 : move1VectorIndex == 2 ? moves3 : move1VectorIndex == 3 ? moves4 : moves5)[move1Id % 150];
+            const Move move2 = (move2VectorIndex == 0 ? moves1 : move2VectorIndex == 1 ? moves2 : move2VectorIndex == 2 ? moves3 : move2VectorIndex == 3 ? moves4 : moves5)[move2Id % 150];
 #else
-            int move1VectorIndex = (move1Id - 1)/400;
-            int move2VectorIndex = (move2Id - 1)/400;
-            const Move move1 = (move1VectorIndex == 0 ? moves1 : moves2)[(move1Id - 1) % 400];
-            const Move move2 = (move2VectorIndex == 0 ? moves1 : moves2)[(move2Id - 1) % 400];
+            int move1VectorIndex = move1Id/400;
+            int move2VectorIndex = move2Id/400;
+            const Move move1 = (move1VectorIndex == 0 ? moves1 : moves2)[move1Id % 400];
+            const Move move2 = (move2VectorIndex == 0 ? moves1 : moves2)[move2Id % 400];
 #endif
 
             int damageClass1 = move1.getDamageClass();
             int damageClass2 = move2.getDamageClass();
-            return order == Qt::DescendingOrder ? damageClass1 > damageClass2 : damageClass1 < damageClass2;
+            return order == Qt::AscendingOrder ? damageClass1 > damageClass2 : damageClass1 < damageClass2;
         });
         break;
     default:
@@ -227,11 +227,11 @@ void ModelPokemonMoves::updateModelByFilter()
         for (int i = 0; i < checkedPokemonMoves.count(); ++i) {
             int moveId = pokemonMoves[checkedPokemonMoves[i]].getId();
 #ifndef LITE_VERSION
-            int moveVectorIndex = (moveId - 1)/150;
-            const Move move = (moveVectorIndex == 0 ? moves1 : moveVectorIndex == 1 ? moves2 : moveVectorIndex == 2 ? moves3 : moveVectorIndex == 3 ? moves4 : moves5)[(moveId - 1) % 150];
+            int moveVectorIndex = moveId/150;
+            const Move move = (moveVectorIndex == 0 ? moves1 : moveVectorIndex == 1 ? moves2 : moveVectorIndex == 2 ? moves3 : moveVectorIndex == 3 ? moves4 : moves5)[moveId % 150];
 #else
-            int moveVectorIndex = (moveId - 1)/400;
-            const Move move = (moveVectorIndex == 0 ? moves1 : moves2)[(moveId - 1) % 400];
+            int moveVectorIndex = moveId/400;
+            const Move move = (moveVectorIndex == 0 ? moves1 : moves2)[moveId % 400];
 #endif
 
             const auto &names = move.getNames();

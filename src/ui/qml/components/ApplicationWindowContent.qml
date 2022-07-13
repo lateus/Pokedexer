@@ -53,6 +53,7 @@ Item {
     readonly property bool pageTypeDetailsIsActive: stackView.currentItem === pageTypeDetails
     readonly property bool pageTypePerformanceIsActive: stackView.currentItem === pageTypePerformance
     readonly property bool pageTypeChartIsActive: stackView.currentItem === pageTypeChart
+    readonly property bool pageNatureChartIsActive: stackView.currentItem === pageNatureChart
     readonly property bool pageTeamDetailsIsActive: stackView.currentItem === pageTeamDetails
     readonly property bool pageTeamPokemonDetailsIsActive: stackView.currentItem === pageTeamPokemonDetails
 
@@ -225,6 +226,10 @@ Item {
 
     PageTypeChart {
         id: pageTypeChart
+    }
+
+    PageNatureChart {
+        id: pageNatureChart
     }
 
     PageTeamDetails {

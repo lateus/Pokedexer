@@ -4,6 +4,9 @@
 #include <QAbstractListModel>
 #include <QtQml>
 
+#include "../../database/common/db_common.h"
+#include "ModelNatureChart/modelnaturechart.h"
+
 class ModelNatures : public QAbstractListModel
 {
     Q_OBJECT
@@ -13,9 +16,10 @@ class ModelNatures : public QAbstractListModel
     Q_PROPERTY(int currentVersionGroup READ getCurrentVersionGroup WRITE setCurrentVersionGroup NOTIFY currentVersionGroupChanged)
     Q_PROPERTY(QString filter READ getFilter WRITE setFilter NOTIFY filterChanged)
     Q_PROPERTY(bool filterMatchs READ getFilterMatchs NOTIFY filterMatchsChanged)
+    Q_PROPERTY(ModelNatureChart* modelNatureChart READ getModelNatureChart CONSTANT)
 
 public:
-    enum Roles { IdRole = Qt::UserRole + 1, NameRole, StatUpRole, StatDownRole, FlavorUpRole, FlavorDownRole, IsNeutralRole };
+    enum Roles { IdRole = Qt::UserRole + 1, NameRole, StatUpIdRole, StatDownIdRole, StatUpRole, StatDownRole, FlavorUpRole, FlavorDownRole, IsNeutralRole };
     Q_ENUM(Roles)
     explicit ModelNatures(QObject *parent = nullptr);
 
@@ -31,6 +35,8 @@ public:
     bool getFilterMatchs() const;
     void setFilterMatchs(bool value);
 
+    ModelNatureChart *getModelNatureChart() const;
+
 protected:
     QHash<int, QByteArray> roleNames() const;
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
@@ -38,6 +44,8 @@ protected:
 
 public slots:
     QVariant getNatureData(int natureId, int role) const;
+    int getNatureIdFromStatBonus(int statUp = NoneStat, int statDown = NoneStat) const;
+    int getRandomNatureId(bool neutralOnly = false) const;
 
 signals:
     void currentLanguageChanged(int value);
@@ -46,8 +54,10 @@ signals:
     void filterMatchsChanged(bool value);
 
 private:
-    int currentLanguage = 7; // ES spanish
+    int currentLanguage = 9; // EN english
     int currentVersionGroup = 18; // ultra sun - ultra moon
+
+    ModelNatureChart *modelNatureChart = new ModelNatureChart;
 
     QVector<int> filteredNatures;
     QString filter;

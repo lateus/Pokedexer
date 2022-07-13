@@ -81,7 +81,7 @@ Page {
                 onHoveredLinkChanged: {
                     mouseAreaLinkHovered.cursorShape = hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
                 }
-                onLinkActivated: {
+                onLinkActivated: function(link) {
                     if (link === qsTr("License")) {
                         licenseRequested()
                     } else {

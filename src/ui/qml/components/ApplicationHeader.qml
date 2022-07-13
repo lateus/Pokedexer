@@ -47,8 +47,11 @@ Pane {
             y: (parent.height - height)/2
             width: 70
             height: 70
-            background.width: width*0.71
-            background.height: height*0.71
+            padding: 0
+            topInset: 6
+            bottomInset: 6
+            leftInset: 6
+            rightInset: 6
 
             icon.source: applicationWindow.stackViewIsOverfilled ? "qrc:/images/icons/arrows/arrow_back.svg" : "qrc:/images/icons/menu/menu.svg"
 

@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
-//import QtGraphicalEffects 1.0
+//import Qt5Compat.GraphicalEffects
 
 // Qt Labs
 import Qt.labs.settings 1.0 as QtLabsSettings
@@ -17,8 +17,8 @@ ApplicationWindow {
 
     readonly property bool stackViewIsOverfilled: applicationWindowContent.stackViewDepth > 1
 
-    width: 300
-    height: 480
+    width: 360
+    height: 660
 
     visible: true
     title: Qt.application.name
