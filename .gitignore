@@ -2,7 +2,12 @@ bin/
 binlib/
 build/
 build-*/
+resources/images/sprites/items-icons_OLD
+resources/images/sprites/pokemon-icons_original
 .vscode/
+alpha.png
+omega.png
+mega.png
 
 # Qt project files
 *.user
