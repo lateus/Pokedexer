@@ -64,7 +64,7 @@ As of today, no releases has been published yet. However, a compilable tag was p
 
 Release type | ![win](resources/images/github-related/windows.svg "Windows") | ![mac](resources/images/github-related/macos.svg "macOS") | ![linux](resources/images/github-related/linux.svg "Linux")
 -------------------------------------------|--------------------|--------------------|--------------------
-Source code *(compilable)*                 | No                 | No                 | No 
+Source code *(compilable)*                 | Yes                | ?                  | Yes 
 Installer *(recommended)*                  | No                 | No                 | No
 Portable<br> *(compressed folder)*         | No                 | No                 | No
 Portable<br> *(static, single executable)* | No                 | No                 | No
@@ -73,7 +73,7 @@ Portable<br> *(static, single executable)* | No                 | No            
 
 Release type | ![droid](resources/images/github-related/android.svg "Android") | ![ios](resources/images/github-related/ios.svg "iOS")
 -------------------------------------------|--------------------|--------------------
-Source code *(compilable)*                 | No                 | No
+Source code *(compilable)*                 | Yes                | ?
 Default *(Store)*                          | No                 | No
 Alternative                                | No                 | No
 
@@ -81,7 +81,7 @@ Alternative                                | No                 | No
 
 Release type | ![raspi](resources/images/github-related/raspberry-pi.svg "Raspberry Pi")
 -------------------------------------------|--------------------
-Source code *(compilable)*                 | No
+Source code *(compilable)*                 | ?
 Installer *(recommended)*                  | No
 Portable<br> *(compressed folder)*         | No
 Portable<br> *(static, single executable)* | No
@@ -100,7 +100,7 @@ The minimum required version is [CMake 3.16](https://cmake.org/files/v3.16/ "Dow
 
 <table>
      <tr><td style="width:90px"><a href="https://qt.io/"><img src="resources/images/icons/qt/qt_logo_green.svg" title="The Qt Company"></a></td><td>This project uses the <a href="https://www.qt.io/" title="The Qt Company">Qt framework</a> for the frontend. The minimum required version is <a href="https://download.qt.io/archive/qt/6.0/6.0.0/" title="Download Qt 6.0.0">Qt 6.0.0</a>, but we always recommend using the <a href="https://download.qt.io/archive/qt/" title="Download latest version">latest version</a> available.</td></tr>
-     <tr><td style="width:90px"><a href="https://imagemagick.org/"><img src="resources/images/github-related/image-magick.svg" title="Image Magick"></a></td><td>Windows requires the command line tool <tt>convert</tt> (or <tt>magick convert</tt>, depending of the version used), that comes with the open-source <a href="https://imagemagick.org" title="Image Magick">ImageMagick</a> project in order to build the icon. A default icon is always provided, so this is not neccesary unless it's going to be replaced.</td></tr>
+     <tr><td style="width:90px"><a href="https://imagemagick.org/"><img src="resources/images/github-related/image-magick.svg" title="Image Magick"></a></td><td>Windows requires the command line tool <tt>convert</tt> (or <tt>magick convert</tt>, depending on the version used), that comes with the open-source <a href="https://imagemagick.org" title="Image Magick">ImageMagick</a> project in order to build the icon. A default icon is always provided, so this is not neccesary unless it's going to be replaced.</td></tr>
 </table>
 
 
