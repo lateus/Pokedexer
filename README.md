@@ -14,6 +14,9 @@
 :star: Star us on GitHub — it really helps!
 
 
+## Wanna see the gallery? [Here!](#gallery)
+
+
 ## Table of content
 
 - [Pokedexer](#pokedexer)
@@ -141,9 +144,6 @@ The minimum required version is [CMake 3.16](https://cmake.org/files/v3.16/ "Dow
 ### Size
 ![Github code size](https://img.shields.io/github/languages/code-size/lateus/pokedexer.svg "Code size")
 ![Github repository size](https://img.shields.io/github/repo-size/lateus/pokedexer.svg "Repository size")
-![Github file count](https://img.shields.io/github/directory-file-count/lateus/pokedexer.svg "File count")
-![Github .cpp file count](https://img.shields.io/github/directory-file-count/lateus/pokedexer/*.svg?color=blue&extension=cpp&label=.cpp%20files.svg ".cpp file count")
-![Github .qml file count](https://img.shields.io/github/directory-file-count/lateus/pokedexer/*.svg?color=blue&extension=qml&label=.qml%20files ".qml file count")
 
 
 ## License
@@ -154,3 +154,7 @@ WIP
 </h2>
 
 [![WIP](resources/images/github-related/wip.svg)](https://github.com/lateus/pokedexer/issues "WIP: Check issues")
+
+
+## Gallery
+![win](resources/images/github-related/screenshot.jpg "Screenshots")
