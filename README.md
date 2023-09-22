@@ -157,4 +157,4 @@ WIP
 
 
 ## Gallery
-![win](resources/images/github-related/screenshot.png "Screenshots")
+![win](resources/images/github-related/screenshots.png "Screenshots")
