@@ -1,4 +1,5 @@
 <a href="https://t.me/pokedexer"> <img src="resources/images/github-related/telegram.svg" height=18 title="Follow us on Telegram"></a>
+[Follow us on Telegram!](https://t.me/pokedexer)
 <a href="https://github.com/lateus/pokedexer"> <img src="resources/images/icons/app/appIcon.png" height=96 align="right"></a>
 
 # Pokedexer
